@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block restaurant_list %}
+    <a href="{% url 'restaurant_rating:restaurant_list' %}" class="btn-back">Reataurant List</a>
+    <div class="rest-box">
+        <div class="image-container">
+            <img src="{{restaurant.imageURL}}" alt="A restaurant photo">
+        </div>
+        <div class="rest-info">
+            <div class="row" id="name-location">
+                <div class="name">
+                    <h4>{{ restaurant.name }}</h4>
+                    <div class="rating-bar">
+                        {% for star in restaurant.calc_score %}
+                            <i class="fas fa-star gold"></i>
+                        {% endfor %}
+                        {% if restaurant.rest_of_score %}
+                            {% for star_gary in restaurant.rest_of_score %}
+                                <i class="fas fa-star"></i>
+                            {% endfor %}
+                        {% endif %}
+                        <i class='score-number'>{{ restaurant.calc_score |length|stringformat:".1f"}}</i>
+                        <i class='score-number' >from {{ restaurant.rate_set.count }} review{{ restaurant.rate_set.count |pluralize}}</i>
+                    </div>
+                    <p>Lunch, Dinner</p>
+                </div>
+                <div class="location">
+                    <small class="phone">{{restaurant.location.country}}, {{restaurant.location.city}}</small><br>
+                    <small class="street">{{restaurant.location.street}} st</small><br>
+                    <small class="building">{{restaurant.location.phone_number}}</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="brife">
+                    <p>
+                        {% if restaurant.brief %}
+                        {{restaurant.brief}}
+                        {% else %}
+                        There is not enoght information here
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% comment %} <form action="" method="post" id="rate_form">
+        <h5>Rate this restaurant</h5>
+        <input type="text" name="name" id="name_input" placeholder="Your name">
+        <select name="rate" id="rate_input">
+            <option value="0" disabled selected>select one</option>
+            <option value="1">Very Poor</option>
+            <option value="2">Poor</option>
+            <option value="3">Good</option>
+            <option value="4">Very Good</option>
+            <option value="5">Excellent</option>
+        </select>
+        <textarea name="comment" id="rate_comment" cols="30" rows="5" placeholder="Comment..."></textarea>
+        <button type="submit">Rate</button>
+    </form> {% endcomment %}
+    <form action="" method="post" id="rate_form">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Rate</button>
+    </form>
+    <div class="users-rate">
+        {% for user in restaurant.rate_set.all %}
+            <div class="user-rate">
+            <h6><i class="fas fa-user"></i> {{ user.name }}</h6>
+            <div class="rating-bar">
+                {% for star in user.calc_score %}
+                    <i class="fas fa-star gold"></i>
+                {% endfor %}
+                {% if user.rest_of_score %}
+                    {% for star_gary in user.rest_of_score %}
+                        <i class="fas fa-star"></i>
+                    {% endfor %}
+                {% endif %}
+                <i class='score-number'>{{ user.calc_score |length|stringformat:".1f"}}</i>
+            </div>
+            <p class="user-rate-comment">
+                {{ user.comment }}
+            </p>
+        </div>
+        <hr>
+        {% endfor %}
+    </div>
+{% endblock restaurant_list %}
+ 

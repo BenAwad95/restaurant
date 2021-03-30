@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}List Restaurant
+    {% endblock title %}</title>
+    <script src="https://kit.fontawesome.com/c06101e090.js" crossorigin="anonymous"></script>
+    {% load static %}
+    <link rel="stylesheet" href={% static 'css/style.css' %}>
+</head>
+<body>
+    <header id="main-header">
+        <h1>Restaurant Rating</h1>
+        <p>Here you find the real review for your next meal at restaurant</p>
+    </header>
+    <main id="main-main">
+       <div class="container">
+            <div id="restaurant-feed">
+                {% block restaurant_list %}
+                    <h2 id="section-heading">Restaurant List</h2>
+                    <div class="rest-box">
+                    <div class="image-container">
+                        <img src="./restaurant.jpg" alt="A restaurant photo">
+                    </div>
+                    <div class="rest-info">
+                        <div class="row" id="name-location">
+                            <div class="name">
+                                <h4>Big Burger</h4>
+                                <div class="rating-bar">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <p>Lunch, Dinner</p>
+                            </div>
+                            <div class="location">
+                                <small class="phone">(+966) 569368369</small><br>
+                                <small class="street">King Abdullah St</small><br>
+                                <small class="building">4078 building</small>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="brife">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum dolore totam esse debitis eius vel numquam ab quod repellendus nisi, placeat maiores qui ipsa exercitationem tempora temporibus, consectetur itaque nesciunt? Facere, nulla et. Accusantium non beatae ipsum laborum quos. Eos illo dolore iste officiis quia voluptas neque ipsum consequatur, quibusdam corporis sunt quod id excepturi incidunt. Neque ad, unde tenetur aspernatur atque distinctio molestias fugit accusamus eos nihil, nisi assumenda.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="rate-btn">Write a review</button>
+                </div>
+                {% endblock restaurant_list %}
+            </div>
+       </div>
+    </main>
+</body>
+</html>
